@@ -19,6 +19,8 @@ client = mqtt.connect("mqtt://" + broker + ":" + port, {
 ```
 
 ## Receiving Data from an IoT Out Node in Node-RED with MQTT
+QOS 1 is the most important feature to get a consistent stream of messages from the Foundation.
+
 
 ```javascript
 client.subscribe('iot-2/cmd/+/fmt/json', {qos: 1}, function(err, granted) {
