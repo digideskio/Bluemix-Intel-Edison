@@ -76,41 +76,37 @@ require('properties').parse(cfgFile, {path: true}, function(err, cfg) {
         "keepalive": 10000,
         "username": "use-token-auth",
         "password": password
-        });
+        }); // End mqtt.connect
 
-        topic = 'iot-2/evt/status/fmt/json';
+    topic = 'iot-2/evt/status/fmt/json';
 
-        // Send a message every second
-        var interval = setInterval(publishMessage, 1000);
+    // Send a message every second
+    var interval = setInterval(publishMessage, 1000);
 
-        // Subscribe and Publish
-        client.subscribe('iot-2/cmd/+/fmt/json', {
-            qos: 1
-        }, function(err, granted) {
-            if (err) throw err;
-            console.log("subscribed");
-        });
+    // Subscribe and Publish
+    client.subscribe('iot-2/cmd/+/fmt/json', {
+        qos: 1
+    }, function(err, granted) {
+        if (err) throw err;
+        console.log("subscribed");
+    }); // End client.subscribe
 
-        client.on('error', function(err) {
-            console.error('client error ' + err);
-            process.exit(1);
-        });
+    client.on('error', function(err) {
+        console.error('client error ' + err);
+        process.exit(1);
+    }); // End client.on error
     
-        // When a message is received from the IoT Foundation, send to the LCD display
-        client.on('message', function(topic, message, packet) {
-            console.log('Message received on topic: ' + topic);
-            var msg = JSON.parse(message.toString());
-            console.log(msg);
+    // When a message is received from the IoT Foundation, send to the LCD display
+    client.on('message', function(topic, message, packet) {
+        console.log('Message received on topic: ' + topic);
+        var msg = JSON.parse(message.toString());
+        console.log(msg);
 
-            lcdDisplay(msg);
+        lcdDisplay(msg);
 
-        });
-
-        console.log("Broker: " + broker);
-        console.log("Device ID: " + macAddress);
-        console.log("Topic: " + topic);
-    });
-});
+    }); // End client.on message
+    
+}); // End require cfgFile
 
 function publishMessage() {
     var message = {};
@@ -127,7 +123,7 @@ function publishMessage() {
 
     // Publish message to MQTT status topic
     client.publish(topic, JSON.stringify(message));
-}
+} // End publishMessage
 
 function lcdDisplay(data) {
     var text = data.d.text;
@@ -149,4 +145,4 @@ function lcdDisplay(data) {
     myLCD.write('Temperature:');
     myLCD.setCursor(1, 1);
     myLCD.write(text);
-}
+} // End lcdDisplay
