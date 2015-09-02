@@ -48,3 +48,6 @@ client.on('message', function(topic, message, packet) {
 });
 ```
 
+## Example IoT Out Node Configuration
+![Node-RED Bluemix IoT Out Node](http://www.stefdoestech.com/wp-content/uploads/2015/09/IBMIoTAppOut.png)
+
