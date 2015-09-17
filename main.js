@@ -59,11 +59,11 @@ require('properties').parse(cfgFile, {path: true}, function(err, cfg) {
     else {
         deviceId = cfg.id;
     }
-    if (!cfg.['auth-token']) {
+    if (!cfg.authtoken) {
             throw "No auth token defined in config file.";
         }
     else {
-        password = cfg['auth-token'];
+        password = cfg.auth-token;
     }
     
     
